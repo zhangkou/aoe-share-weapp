@@ -32,6 +32,9 @@ Page({
     var that = this
     //调用应用实例的方法获取全局数据
     this.getData();
+    wx.showShareMenu({
+      withShareTicket: true
+    })
   },
   upper: function () {
     wx.showNavigationBarLoading()

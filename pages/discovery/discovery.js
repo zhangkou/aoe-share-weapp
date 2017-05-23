@@ -1,5 +1,8 @@
 //discovery.js
 var util = require('../../utils/util.js')
+var sourceType = [ ['camera'], ['album'], ['camera', 'album'] ]
+var sizeType = [ ['compressed'], ['original'], ['compressed', 'original'] ]
+
 Page({
   data: {
     navTab: ["推荐", "圆桌", "热门", "收藏"],
@@ -14,7 +17,16 @@ Page({
     interval: 5000,
     duration: 1000,
     feed: [],
-    feed_length: 0
+    feed_length: 0,
+    imageList: [],
+    sourceTypeIndex: 2,
+    sourceType: ['拍照', '相册', '拍照或相册'],
+
+    sizeTypeIndex: 2,
+    sizeType: ['压缩', '原图', '压缩或原图'],
+
+    countIndex: 8,
+    count: [1, 2, 3, 4, 5, 6, 7, 8, 9]
   },
   onLoad: function () {
     console.log('onLoad')
@@ -86,5 +98,43 @@ Page({
       feed: this.data.feed.concat(next_data),
       feed_length: this.data.feed_length + next_data.length
     });
+  },
+
+  sourceTypeChange: function (e) {
+    this.setData({
+      sourceTypeIndex: e.detail.value
+    })
+  },
+  sizeTypeChange: function (e) {
+    this.setData({
+      sizeTypeIndex: e.detail.value
+    })
+  },
+  countChange: function (e) {
+    this.setData({
+      countIndex: e.detail.value
+    })
+  },
+  chooseImage: function () {
+    var that = this
+    wx.chooseImage({
+      sourceType: sourceType[this.data.sourceTypeIndex],
+      sizeType: sizeType[this.data.sizeTypeIndex],
+      count: this.data.count[this.data.countIndex],
+      success: function (res) {
+        console.log(res)
+        that.setData({
+          imageList: res.tempFilePaths
+        })
+      }
+    })
+  },
+  previewImage: function (e) {
+    var current = e.target.dataset.src
+
+    wx.previewImage({
+      current: current,
+      urls: this.data.imageList
+    })
   }
 });
