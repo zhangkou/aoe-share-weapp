@@ -1,35 +1,36 @@
 <form bindsubmit="onSubmit">
 <view class="container">
     <view class='title'><input name="title" placeholder-class="placeholder" placeholder="在此输入标题" value="" /></view>
-    <view class='row' catchtap="onFocus">
-        <textarea class='text' maxlength="5000" auto-height="true" placeholder-class="placeholder"  name="content" focus="{{focus}}" auto-focus="true" value="" placeholder="点击添加文本" />
+    <view class='title'><input name="price" placeholder-class="placeholder" placeholder="价格" value="" /></view>
+    <view class='title'><input name="phone" placeholder-class="placeholder" placeholder="电话" value="" /></view>
+    <view class='title'><input name="phone" placeholder-class="placeholder" placeholder="类别" value="" /></view>
+
+    <view class='row'>
+        <textarea class='text' maxlength="5000" auto-height="true" placeholder-class="placeholder"  name="content" focus="{{focus}}" auto-focus="true" value="" placeholder="点击添加描述文本" />
     </view>
 
-<view class="weui-cells">
-          <view class="weui-cell">
-            <view class="weui-cell__bd">
-              <view class="weui-uploader">
-                <view class="weui-uploader__hd">
-                  <view class="weui-uploader__title">点击可预览选好的图片</view>
-                  <view class="weui-uploader__info">{{imageList.length}}/{{count[countIndex]}}</view>
-                </view>
-                <view class="weui-uploader__bd">
-                  <view class="weui-uploader__files">
-                    <block wx:for="{{imageList}}" wx:for-item="image">
-                      <view class="weui-uploader__file">
-                        <image class="weui-uploader__img" src="{{image}}" data-src="{{image}}" bindtap="previewImage"></image>
-                      </view>
-                    </block>
+    <view class="weui-cells">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <view class="weui-uploader">
+            <view class="weui-uploader__bd">
+              <view class="weui-uploader__files">
+                <block wx:for="{{imageList}}" wx:for-item="image" wx:key="*this">
+                  <view class="weui-uploader__file">
+                    <image class="weui-uploader__img" src="{{image}}" data-src="{{image}}" bindtap="previewImage"></image>
                   </view>
-                  <view class="weui-uploader__input-box">
-                    <view class="weui-uploader__input" bindtap="chooseImage"></view>
-                  </view>
-                </view>
+                </block>
+              </view>
+              <view class="weui-uploader__input-box">
+                <view class="weui-uploader__input" bindtap="chooseImage"></view>
               </view>
             </view>
           </view>
         </view>
+      </view>
+    </view>
 
+    
     <view class='bottom'>
         <button formType="submit" class='btn success'>发布</button>
     </view>
